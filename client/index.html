@@ -67,11 +67,15 @@
     }
 
     #messages li {
+      display: flex;
+      justify-content: space-between; /* Nachricht links, Button rechts */
+      align-items: center;
       margin-bottom: 0.5rem;
       padding: 0.5rem;
       background: #e9ecef;
       border-radius: 5px;
     }
+
 
     #form {
       display: flex;
@@ -102,13 +106,17 @@
     #form button:hover {
       background-color: #218838;
     }
-
-    #own-message {
-      background-color: #d0e7ff; /* hellblau */
-      text-align: right;
-      font-weight: bold;
+    
+    
+    button.btn-info {
+      margin-left: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
     }
-
 
     body.chat-open {
       display: flex;
@@ -131,7 +139,6 @@
   </style>
 </head>
 <body>
-
   <div id="login">
     <h2>Willkommen im Live Chat</h2>
     <input id="nickname" placeholder="Dein Name" />
@@ -146,38 +153,8 @@
     </form>
   </div>
 
+  <!-- Reihenfolge ist wichtig: socket.io vor deinem eigenen Script -->
   <script src="/socket.io/socket.io.js"></script>
-  <script>
-    const socket = io();
-    let nickname = "";
-
-    function login() {
-      nickname = document.getElementById('nickname').value.trim();
-      if (!nickname) return alert("Bitte Namen eingeben");
-
-      document.getElementById('login').style.display = 'none';
-      document.getElementById('chat').style.display = 'flex';
-      document.body.classList.add('chat-open');
-    }
-
-    const form = document.getElementById('form');
-    const input = document.getElementById('input');
-    const messages = document.getElementById('messages');
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      if (input.value && nickname) {
-        socket.emit('chat message', { name: nickname, text: input.value });
-        input.value = '';
-      }
-    });
-
-    socket.on('chat message', msg => {
-      const item = document.createElement('li');
-      item.textContent = `[${msg.name}] ${msg.text}`;
-      messages.appendChild(item);
-      messages.scrollTop = messages.scrollHeight;
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
