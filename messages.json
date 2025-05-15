@@ -1,6 +1,66 @@
 [
   {
-    "name" : "ADMIN",
-    "text" : "WELCOME TO THE LIVECHAT."
+    "name": "ADMIN",
+    "text": "WELCOME TO THE LIVECHAT."
+  },
+  {
+    "name": "glug",
+    "text": "hallo"
+  },
+  {
+    "name": "glug",
+    "text": "<em>hallo</em>"
+  },
+  {
+    "name": "glug",
+    "text": "<strong>hallo</strong>"
+  },
+  {
+    "name": "glug",
+    "text": "<span style=\"color:red;\">hallo</span>"
+  },
+  {
+    "name": "sepp",
+    "text": "Hallo"
+  },
+  {
+    "name": "sepp",
+    "text": "<em>hallo</em>"
+  },
+  {
+    "name": "sepp",
+    "text": "<strong>hallo</strong>"
+  },
+  {
+    "name": "sepp",
+    "text": "<span style=\"color:red;\">hallo</span>"
+  },
+  {
+    "name": "hitler",
+    "text": "<span style=\"color:red;\"><strong>rüß euch</strong>🙋‍♂️</span>"
+  },
+  {
+    "name": "hitler",
+    "text": "<span style=\"color:red;\"><strong>rüß euch</strong>🙋‍♂️</span>"
+  },
+  {
+    "name": "hitler",
+    "text": "<span style=\"color:red;\"><strong>halloallo</strong>🙋‍♂️</span>"
+  },
+  {
+    "name": "hitler",
+    "text": "<span style=\"color:red;\"><strong>alloallo</strong>🙋‍♂️</span>"
+  },
+  {
+    "name": "hitler",
+    "text": "<span style=\"color:red;\"><strong>hallo</strong>🙋‍♂️</span>"
+  },
+  {
+    "name": "someone",
+    "text": "<span style=\"color:blue;\"><strong>!SEAS</strong></span>"
+  },
+  {
+    "name": "someone",
+    "text": "<span style=\"color:blue;\"><strong>SEAS</strong></span>"
   }
 ]

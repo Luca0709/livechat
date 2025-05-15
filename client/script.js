@@ -27,7 +27,7 @@ socket.on('chat message', msg => {
     const item = document.createElement('li');
 
     const msgText = document.createElement('span');
-    msgText.innerHTML = `<strong>[${msg.name}]</strong> ${msg.text}`;
+    msgText.innerHTML = `<strong>[${escapeHtml(msg.name)}]</strong> ${msg.text}`;
 
     const btnHallOfFame = document.createElement('button');
     btnHallOfFame.classList.add('btn', 'btn-info');
@@ -42,7 +42,14 @@ socket.on('chat message', msg => {
   }
 });
 
-
 function saveMsgIntoHallOfFame(msg) {
   alert("TO BE IMPLEMENTED. MSG: " + msg.text);
+}
+
+
+// Sicherheitsfunktion zum Escapen von HTML
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }

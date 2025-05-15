@@ -24,22 +24,27 @@ try {
 io.on('connection', socket => {
   console.log('✅ Neuer Benutzer verbunden:', socket.id);
 
-  // 🔽 Nur alte Nachrichten an den neuen Client senden (einmalig)
-  // Sende nur alte Nachrichten, wenn der Client zum ersten Mal verbunden ist
+  // 🔽 Nur alte Nachrichten an den neuen Client senden
   messages.forEach(msg => {
     socket.emit('chat message', msg);
   });
 
-  // 🔼 Wenn der Client eine neue Nachricht sendet
+  // 🔼 Neue Nachricht empfangen
   socket.on('chat message', msg => {
     console.log(`[${msg.name}] ${msg.text}`);
 
-    // Speichern der neuen Nachricht in der Liste
-    messages.push(msg);
+    // Nachricht formatieren
+    const formattedMsg = {
+      name: escapeHtml(msg.name),
+      text: formatText(msg.name, msg.text)
+    };
+
+    // Speichern
+    messages.push(formattedMsg);
     saveMessagesToFile();
 
-    // Sende die neue Nachricht an alle verbundenen Clients (nicht die alten)
-    io.emit('chat message', msg);
+    // An alle senden
+    io.emit('chat message', formattedMsg);
   });
 
   socket.on('disconnect', () => {
@@ -52,6 +57,35 @@ function saveMessagesToFile() {
   fs.writeFile('messages.json', JSON.stringify(messages, null, 2), err => {
     if (err) console.error('❌ Fehler beim Speichern:', err);
   });
+}
+
+// 🔤 HTML escapen für Sicherheit
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// ✨ Formatierung anwenden
+function formatText(name, text) {
+  const trimmed = text.trim();
+  if (trimmed.startsWith('*')) {
+    return `<strong>${escapeHtml(trimmed.slice(1).trim())}</strong>`;
+  } else if (trimmed.startsWith('/')) {
+    return `<em>${escapeHtml(trimmed.slice(1).trim())}</em>`;
+  }else if (trimmed.startsWith('$')) {
+    return `<span style="color:red;">${escapeHtml(trimmed.slice(1).trim())}</span>`;
+  }else if(name.toLowerCase().includes("hitler")) {
+    return `<span style="color:red;"><strong>${trimmed}</strong>🙋‍♂️</span>`;  //${escapeHtml(trimmed.slice(1).trim())}
+  }else if(trimmed.startsWith('!')) {
+    return `<span style="color:blue;"><strong>${escapeHtml(trimmed.slice(1).trim())}</strong></span>`;
+  }
+   else {
+    return escapeHtml(trimmed);
+  }
 }
 
 const PORT = process.env.PORT || 8080;
