@@ -30,6 +30,11 @@ socket.on('chat message', msg => {
   if (msg && msg.text && msg.name) {
     const item = document.createElement('li');
     item.textContent = `[${msg.name}] ${msg.text}`;
+
+      if (msg.name === nickname) {
+        item.classList.add('own-message');
+      }
+
     messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight); // Automatisch nach unten scrollen
   }
